@@ -286,6 +286,166 @@
     border-bottom: 1px solid var(--border-subtle);
   }
 
+  /* ========== 理念板块（滑动） ========== */
+  .principles {
+    padding: 140px 32px 120px;
+    overflow: hidden;
+    background: var(--bg-primary);
+  }
+  .principles-header {
+    text-align: center;
+    margin-bottom: 64px;
+    max-width: 1080px;
+    margin-left: auto; margin-right: auto;
+  }
+
+  /* 外层容器：控制视口 */
+  .principles-viewport {
+    max-width: 1280px;
+    margin: 0 auto;
+    overflow: hidden;
+    cursor: grab;
+  }
+  .principles-viewport:active { cursor: grabbing; }
+
+  /* 内层轨道：4 张卡片横向排列 */
+  .principles-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 0 32px;
+    transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+    will-change: transform;
+  }
+
+  .principle-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 24px;
+    padding: 40px 32px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.4s, background 0.4s;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+  }
+  .principle-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 0%, rgba(139, 92, 246, 0.12), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+  /* 当前激活的卡片（仅在窄屏或需要提示时才会被加上 active 类） */
+  .principle-card.active {
+    border-color: var(--border-medium);
+    background: var(--bg-card-hover);
+  }
+  .principle-card.active::before { opacity: 1; }
+
+  .principle-num {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent-purple-light);
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .principle-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 14px;
+    color: var(--text-primary);
+    position: relative;
+    z-index: 1;
+  }
+  .principle-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========== 进度条（4 段颠跌式，Apple iPhone 同款） ========== */
+  .principles-progress {
+    display: flex;
+    gap: 8px;
+    max-width: 400px;
+    margin: 48px auto 0;
+    padding: 0 32px;
+  }
+  .progress-segment {
+    flex: 1;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-segment::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 0%;
+    background: var(--text-primary);
+    border-radius: 2px;
+  }
+  /* 已过去的段：满填充 */
+  .progress-segment.filled::after { width: 100%; }
+  /* 当前正在走的段 */
+  .progress-segment.active::after {
+    width: 100%;
+    animation: fillProgress var(--fill-duration, 5s) linear forwards;
+  }
+  @keyframes fillProgress {
+    from { width: 0%; }
+    to   { width: 100%; }
+  }
+
+  /* 宽屏：进度条不显示（4 张都静止展示，没必要） */
+  @media (min-width: 1025px) {
+    .principles-progress { display: none; }
+  }
+
+  /* 窄屏：轨道变成横向单张滚动 */
+  @media (max-width: 1024px) {
+    .principles-viewport {
+      overflow: visible;
+    }
+    .principles-track {
+      grid-template-columns: repeat(4, 85%);
+      gap: 16px;
+      padding: 0 32px;
+    }
+    .principle-card {
+      min-height: 240px;
+      padding: 36px 28px;
+    }
+    .principle-title { font-size: 22px; }
+  }
+
+  @media (max-width: 640px) {
+    .principles { padding: 100px 0 80px; }
+    .principles-track {
+      grid-template-columns: repeat(4, 88%);
+      gap: 12px;
+      padding: 0 20px;
+    }
+    .principle-card {
+      min-height: 220px;
+      padding: 32px 24px;
+    }
+    .principle-title { font-size: 20px; }
+  }
+
   /* Services */
   .services-grid {
     display: grid;
@@ -594,6 +754,47 @@
   </div>
 </section>
 
+<!-- ========== 理念板块（宽屏静止 4 张，窄屏滑动 + 进度条） ========== -->
+<section class="principles">
+  <div class="principles-header reveal">
+    <div class="section-eyebrow">我们的理念</div>
+    <h2 class="section-title">四件事，<br/>我们和别人不一样。</h2>
+  </div>
+
+  <div class="principles-viewport" id="principlesViewport">
+    <div class="principles-track" id="principlesTrack">
+      <div class="principle-card" data-index="0">
+        <div class="principle-num">01</div>
+        <div class="principle-title">不做咨询,<br/>直接下场</div>
+        <div class="principle-desc">不写厚报告,我们和你的团队一起把 AI 跑起来。</div>
+      </div>
+      <div class="principle-card" data-index="1">
+        <div class="principle-num">02</div>
+        <div class="principle-title">从小事开始</div>
+        <div class="principle-desc">先解决一个最痛的环节,再扩展到下一个。</div>
+      </div>
+      <div class="principle-card" data-index="2">
+        <div class="principle-num">03</div>
+        <div class="principle-title">长期陪跑</div>
+        <div class="principle-desc">上线是起点不是终点,持续优化到业务真的变好。</div>
+      </div>
+      <div class="principle-card" data-index="3">
+        <div class="principle-num">04</div>
+        <div class="principle-title">拒绝绑架</div>
+        <div class="principle-desc">用开放方案,不把你锁死在某家供应商身上。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 进度条:只在窄屏显示(CSS 控制) -->
+  <div class="principles-progress" id="principlesProgress">
+    <div class="progress-segment"></div>
+    <div class="progress-segment"></div>
+    <div class="progress-segment"></div>
+    <div class="progress-segment"></div>
+  </div>
+</section>
+
 <!-- Value Prop -->
 <section class="value-prop reveal">
   <div class="section-inner">
@@ -835,6 +1036,149 @@
     video.addEventListener('error', () => {
       hero.classList.remove('has-video');
     });
+  })();
+
+  // ========== 理念板块：窄屏滑动 + 自动播放 + 进度条 ==========
+  (function () {
+    const viewport = document.getElementById('principlesViewport');
+    const track = document.getElementById('principlesTrack');
+    const progress = document.getElementById('principlesProgress');
+    if (!viewport || !track || !progress) return;
+
+    const cards = track.querySelectorAll('.principle-card');
+    const segments = progress.querySelectorAll('.progress-segment');
+    const TOTAL = cards.length;
+    const AUTOPLAY_DURATION = 5000; // 每张卡停留 5 秒
+
+    let currentIndex = 0;
+    let autoplayTimer = null;
+    let isNarrowScreen = false;
+    let isDragging = false;
+    let startX = 0;
+    let currentTranslate = 0;
+    let hasUserInteracted = false;
+
+    // 检测是否窄屏
+    function checkScreen() {
+      isNarrowScreen = window.innerWidth <= 1024;
+      if (isNarrowScreen) {
+        startAutoplay();
+      } else {
+        stopAutoplay();
+        // 宽屏下重置 transform 和状态
+        track.style.transform = '';
+        segments.forEach(s => s.classList.remove('filled', 'active'));
+      }
+    }
+
+    // 切到第 N 张
+    function goTo(index, animated = true) {
+      if (index < 0) index = 0;
+      if (index >= TOTAL) index = TOTAL - 1;
+      currentIndex = index;
+
+      // 计算位移：每张卡占 viewport 宽度的一部分
+      const card = cards[0];
+      const cardRect = card.getBoundingClientRect();
+      const gap = parseFloat(window.getComputedStyle(track).gap) || 0;
+      const step = cardRect.width + gap;
+      const offset = -index * step;
+
+      track.style.transition = animated ? 'transform 0.6s cubic-bezier(0.65, 0, 0.35, 1)' : 'none';
+      track.style.transform = `translateX(${offset}px)`;
+      currentTranslate = offset;
+
+      updateProgress();
+    }
+
+    // 更新进度条
+    function updateProgress() {
+      segments.forEach((seg, i) => {
+        seg.classList.remove('filled', 'active');
+        // 强制重排,重置动画
+        void seg.offsetWidth;
+        if (i < currentIndex) {
+          seg.classList.add('filled');
+        } else if (i === currentIndex) {
+          seg.style.setProperty('--fill-duration', (AUTOPLAY_DURATION / 1000) + 's');
+          seg.classList.add('active');
+        }
+      });
+    }
+
+    // 自动播放
+    function startAutoplay() {
+      stopAutoplay();
+      if (hasUserInteracted) return; // 用户互动过了,不再自动播放
+      goTo(currentIndex);
+      autoplayTimer = setInterval(() => {
+        currentIndex = (currentIndex + 1) % TOTAL;
+        goTo(currentIndex);
+      }, AUTOPLAY_DURATION);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    // 拖动交互
+    function onDragStart(e) {
+      if (!isNarrowScreen) return;
+      isDragging = true;
+      hasUserInteracted = true;
+      stopAutoplay();
+      startX = (e.touches ? e.touches[0].clientX : e.clientX);
+      track.style.transition = 'none';
+      // 停止进度条动画
+      segments.forEach(s => s.classList.remove('active'));
+    }
+
+    function onDragMove(e) {
+      if (!isDragging) return;
+      const x = (e.touches ? e.touches[0].clientX : e.clientX);
+      const diff = x - startX;
+      track.style.transform = `translateX(${currentTranslate + diff}px)`;
+    }
+
+    function onDragEnd(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      const x = (e.changedTouches ? e.changedTouches[0].clientX : e.clientX);
+      const diff = x - startX;
+      const threshold = 50; // 滑动超过 50px 才算切换
+
+      if (diff < -threshold && currentIndex < TOTAL - 1) {
+        goTo(currentIndex + 1);
+      } else if (diff > threshold && currentIndex > 0) {
+        goTo(currentIndex - 1);
+      } else {
+        goTo(currentIndex); // 回弹
+      }
+    }
+
+    // 鼠标拖动
+    viewport.addEventListener('mousedown', onDragStart);
+    window.addEventListener('mousemove', onDragMove);
+    window.addEventListener('mouseup', onDragEnd);
+    // 触屏拖动
+    viewport.addEventListener('touchstart', onDragStart, { passive: true });
+    viewport.addEventListener('touchmove', onDragMove, { passive: true });
+    viewport.addEventListener('touchend', onDragEnd);
+
+    // 防止图片被拖拽的浏览器默认行为
+    viewport.addEventListener('dragstart', e => e.preventDefault());
+
+    // 窗口大小变化时重新检测
+    window.addEventListener('resize', () => {
+      checkScreen();
+      if (isNarrowScreen) goTo(currentIndex, false);
+    });
+
+    // 初始化
+    checkScreen();
   })();
 </script>
 
