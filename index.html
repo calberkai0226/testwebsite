@@ -65,15 +65,15 @@
 
   /* ── BCG 式：左 logo 浮块 + 右汉堡浮块 ── */
   .nav-pill-left {
-    position: fixed; top: 12px; left: 50px; z-index: 1100;
+    position: fixed; top: 2px; left: 44px; z-index: 1100;
     display: flex; align-items: center; justify-content: center;
     width: 60px; height: 60px;
-    background: rgba(245, 243, 238, 0.35);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    background: rgba(255, 253, 250, 0.72);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
     border: none;
     border-radius: 50%;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18), 0 0 0 0.5px rgba(255,255,255,0.4);
     opacity: 0; pointer-events: none;
     transform: translateY(-8px);
     transition: opacity 0.3s ease,
@@ -87,15 +87,15 @@
                 box-shadow 0.3s ease;
   }
   .nav-pill-right {
-    position: fixed; top: 12px; right: 70px; z-index: 1100;
+    position: fixed; top: 2px; right: 44px; z-index: 1100;
     display: flex; align-items: center; justify-content: center;
     width: 65px; height: 60px;
-    background: rgba(245, 243, 238, 0.35);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    background: rgba(255, 253, 250, 0.72);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
     border: none;
     border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18), 0 0 0 0.5px rgba(255,255,255,0.4);
     opacity: 0; pointer-events: none;
     transform: translateY(-8px);
     transition: opacity 0.3s ease,
@@ -213,33 +213,37 @@
   .fsm-close span:last-child  { transform: translate(-50%, -50%) rotate(-45deg); }
   .fsm-nav {
     flex: 1; display: flex; flex-direction: column; justify-content: center;
-    padding: 0 48px;
+    padding: 0 36px;
   }
   .fsm-link {
-    display: flex; align-items: baseline; gap: 16px;
-    font-size: clamp(22px, 3vw, 36px); font-weight: 700;
-    color: var(--text-primary); text-decoration: none;
-    line-height: 1.15; padding: 18px 0;
-    border-bottom: 1px solid var(--border-subtle);
-    letter-spacing: -0.02em;
-    transition: color 0.2s, padding-left 0.25s ease;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    font-size: clamp(18px, 2.5vw, 26px); font-weight: 400;
+    color: #888884;
+    text-decoration: none;
+    line-height: 1.2; padding: 22px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
   }
-  .fsm-link:first-child { border-top: 1px solid var(--border-subtle); }
-  .fsm-link:hover { color: var(--accent-purple); padding-left: 14px; }
-  .fsm-num {
-    font-size: 12px; font-weight: 500; letter-spacing: 0.12em;
-    color: var(--text-tertiary); flex-shrink: 0;
+  .fsm-link:first-child { border-top: 1px solid rgba(0,0,0,0.07); }
+  .fsm-link:hover { color: var(--text-primary); }
+  .fsm-link-arrow {
+    font-size: 18px; color: #bbb;
+    transition: transform 0.2s, color 0.2s;
+    flex-shrink: 0;
   }
-  .fsm-link:hover .fsm-num { color: var(--accent-purple-light); }
+  .fsm-link:hover .fsm-link-arrow { transform: translateX(4px); color: #888; }
+  .fsm-num { display: none; }
   .fsm-footer {
-    padding: 28px 48px; border-top: 1px solid var(--border-subtle); flex-shrink: 0;
+    padding: 28px 36px; border-top: 1px solid rgba(0,0,0,0.07); flex-shrink: 0;
   }
   .fsm-cta {
-    font-size: 14px; font-weight: 600; letter-spacing: 0.08em;
+    font-size: 15px; font-weight: 500;
     color: var(--accent-purple); text-decoration: none;
-    transition: letter-spacing 0.2s;
+    transition: opacity 0.2s;
   }
-  .fsm-cta:hover { letter-spacing: 0.14em; }
+  .fsm-cta:hover { opacity: 0.7; }
 
   .pill-logo {
     display: flex; align-items: center; justify-content: center;
@@ -278,7 +282,7 @@
     border-radius: 9px;
     padding: 5px 14px 5px 6px;
   }
-  .logo-full { height: 32px; width: auto; display: block; filter: brightness(0) opacity(0.82); }
+  .logo-full { height: 32px; width: auto; display: block; filter: brightness(0) opacity(0.82); transform: translateX(-15px); }
   .nav-links { display: flex; gap: 36px; }
   .nav-links a {
     font-size: 14px;
@@ -294,8 +298,8 @@
   @media (max-width: 640px) {
     .nav-inner { padding: 0 20px; }
     .nav-links { display: none; }
-    .nav-pill-left  { left: 14px; }
-    .nav-pill-right { right: 14px; }
+    .nav-pill-left  { left: 16px; top: 2px; }
+    .nav-pill-right { right: 16px; top: 2px; }
   }
 
   /* Hero */
@@ -953,13 +957,16 @@
   <div class="fsm-body" id="fsmBody">
     <nav class="fsm-nav">
       <a href="#services" class="fsm-link" onclick="toggleMenu()">
-        <span class="fsm-num">01</span>服务
+        <span>服务</span><span class="fsm-link-arrow">›</span>
       </a>
       <a href="#process" class="fsm-link" onclick="toggleMenu()">
-        <span class="fsm-num">02</span>流程
+        <span>流程</span><span class="fsm-link-arrow">›</span>
       </a>
       <a href="#contact" class="fsm-link" onclick="toggleMenu()">
-        <span class="fsm-num">03</span>联系我们
+        <span>联系我们</span><span class="fsm-link-arrow">›</span>
+      </a>
+      <a href="#contact" class="fsm-link" onclick="toggleMenu()">
+        <span>加入我们</span><span class="fsm-link-arrow">›</span>
       </a>
     </nav>
     <div class="fsm-footer">
