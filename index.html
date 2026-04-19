@@ -68,7 +68,7 @@
     position: fixed; top: 28px; left: 48px; z-index: 1100;
     display: flex; align-items: center; justify-content: center;
     width: 52px; height: 52px;
-    background: rgba(245, 243, 238, 0.72);
+    background: rgba(245, 243, 238, 0.35);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
     border: none;
@@ -90,7 +90,7 @@
     position: fixed; top: 28px; right: 48px; z-index: 1100;
     display: flex; align-items: center; justify-content: center;
     width: 52px; height: 52px;
-    background: rgba(245, 243, 238, 0.72);
+    background: rgba(245, 243, 238, 0.35);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
     border: none;
@@ -198,7 +198,7 @@
     opacity: 1;
   }
   .fsm-logo { display: flex; align-items: center; text-decoration: none; }
-  .fsm-logo img { width: 32px; height: auto; display: block; filter: brightness(0) opacity(0.75); }
+  .fsm-logo img { width: 32px; height: auto; display: block; filter: brightness(0) opacity(0.82); }
   .fsm-close {
     width: 44px; height: 44px;
     background: none; border: none; cursor: pointer;
@@ -264,9 +264,9 @@
   /* 原 logo / nav-links（在完整导航栏里） */
   .logo {
     display: flex; align-items: center; gap: 10px;
-    font-size: 18px; font-weight: 700;
+    font-size: 18px; font-weight: 500;
     letter-spacing: 0.02em;
-    color: #ffffff;
+    color: rgba(255, 252, 248, 0.88);
     transition: color 0.3s;
     border-radius: 10px;
     text-decoration: none;
@@ -277,11 +277,11 @@
     border-radius: 9px;
     padding: 5px 14px 5px 6px;
   }
-  .logo img { width: 34px; height: auto; display: block; }
+  .logo img { width: 34px; height: auto; display: block; filter: brightness(0) opacity(0.82); }
   .nav-links { display: flex; gap: 36px; }
   .nav-links a {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 252, 248, 0.88);
     transition: color 0.2s;
     font-weight: 500;
   }
