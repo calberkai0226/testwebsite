@@ -65,55 +65,129 @@
 
   /* ── BCG 式：左 logo 浮块 + 右汉堡浮块 ── */
   .nav-pill-left {
-    position: fixed; top: 20px; left: 24px; z-index: 1100;
+    position: fixed; top: 32px; left: 48px; z-index: 1100;
     display: flex; align-items: center; justify-content: center;
     width: 48px; height: 48px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(245, 243, 238, 0.72);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(180, 160, 220, 0.35);
+    border: none;
     border-radius: 50%;
-    box-shadow: 0 0 0 1px rgba(180, 160, 220, 0.12);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
     opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
     transform: translateY(-8px);
+    transition: opacity 0.3s ease,
+                transform 0.5s cubic-bezier(0.76,0,0.24,1),
+                top 0.5s cubic-bezier(0.76,0,0.24,1),
+                left 0.5s cubic-bezier(0.76,0,0.24,1);
   }
   .nav-pill-right {
-    position: fixed; top: 20px; right: 24px; z-index: 1100;
+    position: fixed; top: 32px; right: 48px; z-index: 1100;
     display: flex; align-items: center; justify-content: center;
     width: 48px; height: 48px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(245, 243, 238, 0.72);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(180, 160, 220, 0.35);
+    border: none;
     border-radius: 50%;
-    box-shadow: 0 0 0 1px rgba(180, 160, 220, 0.12);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
     opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
     transform: translateY(-8px);
+    transition: opacity 0.3s ease,
+                transform 0.5s cubic-bezier(0.76,0,0.24,1),
+                top 0.5s cubic-bezier(0.76,0,0.24,1),
+                right 0.5s cubic-bezier(0.76,0,0.24,1),
+                width 0.5s cubic-bezier(0.76,0,0.24,1),
+                height 0.5s cubic-bezier(0.76,0,0.24,1),
+                border-radius 0.5s cubic-bezier(0.76,0,0.24,1),
+                background 0.3s ease,
+                box-shadow 0.3s ease;
   }
   .nav-pill-left.visible,
   .nav-pill-right.visible {
     opacity: 1; pointer-events: auto; transform: translateY(0);
   }
 
-  /* ── 全屏菜单 ── */
+  /* 右浮块 hover：背景变紫 */
+  .nav-pill-right:hover {
+    background: rgba(107, 44, 201, 0.15);
+    box-shadow: 0 2px 16px rgba(107, 44, 201, 0.2), 0 0 0 0.5px rgba(107, 44, 201, 0.15);
+  }
+  .nav-pill-right:hover .pill-menu-btn span {
+    background: var(--accent-purple);
+  }
+
+  /* 菜单打开时：右浮块移到右上角 */
+  .nav-pill-right.menu-open {
+    top: 20px !important;
+    right: 24px !important;
+    transform: none !important;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
+  /* 三道杠 → X：第一条转45°，第二条消失，第三条转-45° */
+  .nav-pill-right.menu-open .pill-menu-btn span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+    background: var(--accent-purple);
+  }
+  .nav-pill-right.menu-open .pill-menu-btn span:nth-child(2) {
+    opacity: 0; transform: scaleX(0);
+  }
+  .nav-pill-right.menu-open .pill-menu-btn span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+    background: var(--accent-purple);
+  }
+
+  /* 菜单打开时：左浮块移到左上角 */
+  .nav-pill-left.menu-open {
+    top: 20px !important;
+    left: 24px !important;
+    transform: none !important;
+  }
+
+  /* ── 全屏菜单：外壳透明，body 从下滑入 ── */
   .fullscreen-menu {
     position: fixed; inset: 0; z-index: 2000;
-    background: #f5f3ee;
+    background: transparent;
     display: flex; flex-direction: column;
-    opacity: 0; pointer-events: none;
-    transform: translateY(-20px);
-    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.65,0,0.35,1);
+    pointer-events: none;
   }
   .fullscreen-menu.open {
-    opacity: 1; pointer-events: auto; transform: translateY(0);
+    pointer-events: auto;
+  }
+  /* fsm-body：带背景色，整体从下方滑上来 */
+  .fsm-body {
+    flex: 1;
+    display: flex; flex-direction: column;
+    background: #f5f3ee;
+    transform: translateY(100%);
+    transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .fullscreen-menu.open .fsm-body {
+    transform: translateY(0);
+  }
+  /* 菜单链接跟随滑入，轻微延迟 */
+  .fsm-nav,
+  .fsm-footer {
+    opacity: 0;
+    transition: opacity 0.25s ease 0.35s;
+  }
+  .fullscreen-menu.open .fsm-nav,
+  .fullscreen-menu.open .fsm-footer {
+    opacity: 1;
   }
   .fsm-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 32px; height: 68px;
     border-bottom: 1px solid var(--border-subtle);
     flex-shrink: 0;
+    background: #f5f3ee;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .fullscreen-menu.open .fsm-header {
+    opacity: 1;
   }
   .fsm-logo { display: flex; align-items: center; text-decoration: none; }
   .fsm-logo img { width: 32px; height: auto; display: block; }
@@ -868,19 +942,21 @@
       <span></span><span></span>
     </button>
   </div>
-  <nav class="fsm-nav">
-    <a href="#services" class="fsm-link" onclick="toggleMenu()">
-      <span class="fsm-num">01</span>服务
-    </a>
-    <a href="#process" class="fsm-link" onclick="toggleMenu()">
-      <span class="fsm-num">02</span>流程
-    </a>
-    <a href="#contact" class="fsm-link" onclick="toggleMenu()">
-      <span class="fsm-num">03</span>联系我们
-    </a>
-  </nav>
-  <div class="fsm-footer">
-    <a href="#contact" class="fsm-cta" onclick="toggleMenu()">预约免费咨询 →</a>
+  <div class="fsm-body" id="fsmBody">
+    <nav class="fsm-nav">
+      <a href="#services" class="fsm-link" onclick="toggleMenu()">
+        <span class="fsm-num">01</span>服务
+      </a>
+      <a href="#process" class="fsm-link" onclick="toggleMenu()">
+        <span class="fsm-num">02</span>流程
+      </a>
+      <a href="#contact" class="fsm-link" onclick="toggleMenu()">
+        <span class="fsm-num">03</span>联系我们
+      </a>
+    </nav>
+    <div class="fsm-footer">
+      <a href="#contact" class="fsm-cta" onclick="toggleMenu()">预约免费咨询 →</a>
+    </div>
   </div>
 </div>
 
@@ -1214,9 +1290,13 @@
         document.body.style.overflow = 'hidden';
         pillLeft.classList.add('visible');
         pillRight.classList.add('visible');
+        pillLeft.classList.add('menu-open');
+        pillRight.classList.add('menu-open');
       } else {
         fsMenu.classList.remove('open');
         document.body.style.overflow = '';
+        pillLeft.classList.remove('menu-open');
+        pillRight.classList.remove('menu-open');
         updateNav();
       }
     };
