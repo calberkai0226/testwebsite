@@ -65,9 +65,9 @@
 
   /* ── BCG 式：左 logo 浮块 + 右汉堡浮块 ── */
   .nav-pill-left {
-    position: fixed; top: 32px; left: 48px; z-index: 1100;
+    position: fixed; top: 28px; left: 48px; z-index: 1100;
     display: flex; align-items: center; justify-content: center;
-    width: 48px; height: 48px;
+    width: 52px; height: 52px;
     background: rgba(245, 243, 238, 0.72);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
@@ -77,19 +77,24 @@
     opacity: 0; pointer-events: none;
     transform: translateY(-8px);
     transition: opacity 0.3s ease,
-                transform 0.5s cubic-bezier(0.76,0,0.24,1),
-                top 0.5s cubic-bezier(0.76,0,0.24,1),
-                left 0.5s cubic-bezier(0.76,0,0.24,1);
+                transform 0.45s cubic-bezier(0.76,0,0.24,1),
+                top 0.45s cubic-bezier(0.76,0,0.24,1),
+                left 0.45s cubic-bezier(0.76,0,0.24,1),
+                width 0.45s cubic-bezier(0.76,0,0.24,1),
+                height 0.45s cubic-bezier(0.76,0,0.24,1),
+                border-radius 0.45s cubic-bezier(0.76,0,0.24,1),
+                background 0.3s ease,
+                box-shadow 0.3s ease;
   }
   .nav-pill-right {
-    position: fixed; top: 32px; right: 48px; z-index: 1100;
+    position: fixed; top: 28px; right: 48px; z-index: 1100;
     display: flex; align-items: center; justify-content: center;
-    width: 48px; height: 48px;
+    width: 52px; height: 52px;
     background: rgba(245, 243, 238, 0.72);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
     border: none;
-    border-radius: 50%;
+    border-radius: 14px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
     opacity: 0; pointer-events: none;
     transform: translateY(-8px);
@@ -105,7 +110,7 @@
   }
   .nav-pill-left.visible,
   .nav-pill-right.visible {
-    opacity: 1; pointer-events: auto; transform: translateY(0);
+    opacity: 1; pointer-events: auto; transform: none;
   }
 
   /* 右浮块 hover：背景变紫 */
@@ -117,14 +122,14 @@
     background: var(--accent-purple);
   }
 
-  /* 菜单打开时：右浮块移到右上角 */
+  /* 菜单打开时：右浮标保持圆形带图案，向右移到屏幕最外侧 */
   .nav-pill-right.menu-open {
-    top: 20px !important;
-    right: 24px !important;
+    top: 16px !important;
+    right: -8px !important;
     transform: none !important;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 14px !important;
   }
   /* 三道杠 → X：第一条转45°，第二条消失，第三条转-45° */
   .nav-pill-right.menu-open .pill-menu-btn span:nth-child(1) {
@@ -139,11 +144,14 @@
     background: var(--accent-purple);
   }
 
-  /* 菜单打开时：左浮块移到左上角 */
+  /* 菜单打开时：左浮标保持圆形带图案，向左移到屏幕最外侧 */
   .nav-pill-left.menu-open {
-    top: 20px !important;
-    left: 24px !important;
+    top: 16px !important;
+    left: -8px !important;
     transform: none !important;
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 14px !important;
   }
 
   /* ── 全屏菜单：外壳透明，body 从下滑入 ── */
@@ -162,7 +170,7 @@
     display: flex; flex-direction: column;
     background: #f5f3ee;
     transform: translateY(100%);
-    transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+    transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
   }
   .fullscreen-menu.open .fsm-body {
     transform: translateY(0);
@@ -190,7 +198,7 @@
     opacity: 1;
   }
   .fsm-logo { display: flex; align-items: center; text-decoration: none; }
-  .fsm-logo img { width: 32px; height: auto; display: block; }
+  .fsm-logo img { width: 32px; height: auto; display: block; filter: brightness(0) opacity(0.75); }
   .fsm-close {
     width: 44px; height: 44px;
     background: none; border: none; cursor: pointer;
@@ -238,7 +246,7 @@
     width: 100%; height: 100%;
     text-decoration: none;
   }
-  .pill-logo img { width: 26px; height: auto; display: block; }
+  .pill-logo img { width: 34px; height: auto; display: block; }
 
   .pill-menu-btn {
     display: flex; flex-direction: column; gap: 5px;
@@ -247,9 +255,9 @@
     cursor: pointer; background: none; border: none; padding: 0;
   }
   .pill-menu-btn span {
-    display: block; width: 20px; height: 1.5px;
+    display: block; width: 18px; height: 1.5px;
     background: #2a1f3d;
-    border-radius: 2px;
+    border-radius: 1px;
     transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
@@ -269,7 +277,7 @@
     border-radius: 9px;
     padding: 5px 14px 5px 6px;
   }
-  .logo img { width: 28px; height: auto; display: block; }
+  .logo img { width: 34px; height: auto; display: block; }
   .nav-links { display: flex; gap: 36px; }
   .nav-links a {
     font-size: 14px;
