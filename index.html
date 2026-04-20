@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>巨能场 — 让 AI 真正走进你的业务</title>
+<title>巨能场 — 读懂你的业务，自动化你的流程</title>
 <style>
   /* ========== 阿里妈妈数黑体 ========== */
   @font-face {
@@ -89,7 +89,7 @@
   .nav-pill-right {
     position: fixed; top: 2px; right: 44px; z-index: 1100;
     display: flex; align-items: center; justify-content: center;
-    width: 65px; height: 60px;
+    width: 80px; height: 52px;
     background: rgba(255, 253, 250, 0.72);
     backdrop-filter: blur(16px) saturate(120%);
     -webkit-backdrop-filter: blur(16px) saturate(120%);
@@ -127,21 +127,23 @@
     top: 16px !important;
     right: -8px !important;
     transform: none !important;
-    width: 60px !important;
-    height: 60px !important;
+    width: 80px !important;
+    height: 52px !important;
     border-radius: 14px !important;
   }
   /* 三道杠 → X：第一条转45°，第二条消失，第三条转-45° */
   .nav-pill-right.menu-open .pill-menu-btn span:nth-child(1) {
-    transform: translateY(6.5px) rotate(45deg);
-    background: var(--accent-purple);
+    transform: translateY(7px) rotate(45deg);
+    background: #2a1f3d;
   }
   .nav-pill-right.menu-open .pill-menu-btn span:nth-child(2) {
-    opacity: 0; transform: scaleX(0);
+    opacity: 0;
+    transform: scaleX(0);
+    width: 0;
   }
   .nav-pill-right.menu-open .pill-menu-btn span:nth-child(3) {
-    transform: translateY(-6.5px) rotate(-45deg);
-    background: var(--accent-purple);
+    transform: translateY(-7px) rotate(-45deg);
+    background: #2a1f3d;
   }
 
   /* 菜单打开时：左浮标保持圆形带图案，向左移到屏幕最外侧 */
@@ -149,8 +151,8 @@
     top: 16px !important;
     left: -8px !important;
     transform: none !important;
-    width: 60px !important;
-    height: 60px !important;
+    width: 80px !important;
+    height: 52px !important;
     border-radius: 14px !important;
   }
 
@@ -261,8 +263,11 @@
   .pill-menu-btn span {
     display: block; width: 24px; height: 2px;
     background: #2a1f3d;
-    border-radius: 1px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1),
+                opacity 0.25s ease,
+                width 0.3s ease;
   }
 
   /* 原 logo / nav-links（在完整导航栏里） */
@@ -417,7 +422,7 @@
 
   .hero-title, .hero-subtitle, .hero-ctas { position: relative; z-index: 1; }
   .hero-title {
-    font-size: clamp(52px, 10vw, 128px);
+    font-size: clamp(36px, 6vw, 80px);
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 0.98;
@@ -816,76 +821,7 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* Intro Animation */
-  .intro-overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    background: #000000;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .intro-overlay.fade-out {
-    animation: overlayFadeOut 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  }
-  @keyframes overlayFadeOut {
-    to { opacity: 0; transform: translateY(-20px); visibility: hidden; }
-  }
-  .intro-stage {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0; will-change: transform;
-  }
-  .intro-logo-icon {
-    width: 120px; height: auto; flex-shrink: 0;
-    transform: translateX(60vw) scale(3.2); opacity: 0;
-    animation:
-      logoFlyIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards,
-      logoShrink 0.9s cubic-bezier(0.65, 0, 0.35, 1) 1.8s forwards;
-  }
-  @keyframes logoFlyIn {
-    0%   { transform: translateX(60vw) scale(3.2); opacity: 0; }
-    60%  { transform: translateX(0) scale(3.2); opacity: 1; }
-    100% { transform: translateX(0) scale(3.2); opacity: 1; }
-  }
-  @keyframes logoShrink {
-    0%   { transform: translateX(0) scale(3.2); }
-    100% { transform: translateX(0) scale(1); }
-  }
-  .intro-company-name {
-    font-family: "AlimamaShuHeiTi", -apple-system, "PingFang SC", sans-serif;
-    font-size: 56px; font-weight: 700;
-    letter-spacing: 0.04em; margin-left: 0;
-    max-width: 0; overflow: hidden;
-    white-space: nowrap;
-    border-right: 2px solid var(--accent-purple);
-    color: var(--accent-purple);
-    -webkit-text-fill-color: var(--accent-purple);
-    animation:
-      typing 1.0s steps(3, end) 2.7s forwards,
-      caretBlink 0.7s step-end 2.7s 4,
-      caretHide 0s 3.9s forwards,
-      marginReveal 0s 2.7s forwards;
-  }
-  @keyframes typing { from { max-width: 0; } to { max-width: 280px; } }
-  @keyframes marginReveal { to { margin-left: 28px; } }
-  @keyframes caretBlink { 50% { border-right-color: transparent; } }
-  @keyframes caretHide { to { border-right-color: transparent; } }
-  @media (max-width: 640px) {
-    .intro-logo-icon { width: 80px; }
-    .intro-company-name { font-size: 36px; }
-    @keyframes typing { from { max-width: 0; } to { max-width: 180px; } }
-  }
-  .intro-overlay.skip { display: none; }
-  body.intro-playing { overflow: hidden; }
-  body.intro-playing > nav,
-  body.intro-playing > section,
-  body.intro-playing > footer,
-  body.intro-playing > .chat-fab { opacity: 0; }
-  body.intro-done > nav,
-  body.intro-done > section,
-  body.intro-done > footer,
-  body.intro-done > .chat-fab {
-    opacity: 1;
-    transition: opacity 0.8s ease-out;
-  }
+
 
   /* 手机端降级 */
   @media (max-width: 640px) {
@@ -905,13 +841,7 @@
 </head>
 <body>
 
-<!-- 开场动画 -->
-<div class="intro-overlay" id="introOverlay">
-  <div class="intro-stage">
-    <img class="intro-logo-icon" src="m-logo.png" alt="巨能场" />
-    <div class="intro-company-name">巨能场</div>
-  </div>
-</div>
+
 
 <!-- Navigation (完整顶栏，页面顶端时显示) -->
 <nav class="nav" id="mainNav">
@@ -1016,12 +946,7 @@
   </div>
 
   <!-- Hero 文案 -->
-  <h1 class="hero-title">让 AI 真正<br/>走进你的业务。</h1>
-  <p class="hero-subtitle">我们帮助传统企业搭建 AI 自动化流程，从繁琐的重复劳动中解放出来。</p>
-  <div class="hero-ctas">
-    <a href="#contact" class="btn-primary">预约免费咨询</a>
-    <a href="#services" class="btn-secondary">了解我们的服务</a>
-  </div>
+  <h1 class="hero-title">读懂你的业务，<br/>自动化你的流程。</h1>
 </section>
 
 <!-- ========== 理念板块（宽屏静止 4 张，窄屏滑动 + 进度条） ========== -->
@@ -1212,24 +1137,7 @@
 </div>
 
 <script>
-  // 开场动画
-  (function () {
-    const overlay = document.getElementById('introOverlay');
-    const body = document.body;
-    const hasPlayed = sessionStorage.getItem('introPlayed');
-    if (hasPlayed) {
-      overlay.classList.add('skip');
-      body.classList.add('intro-done');
-    } else {
-      body.classList.add('intro-playing');
-      setTimeout(() => {
-        overlay.classList.add('fade-out');
-        body.classList.remove('intro-playing');
-        body.classList.add('intro-done');
-        sessionStorage.setItem('introPlayed', 'true');
-      }, 4200);
-    }
-  })();
+
 
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
