@@ -54,8 +54,12 @@
     backdrop-filter: saturate(180%) blur(28px);
     -webkit-backdrop-filter: saturate(180%) blur(28px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    will-change: opacity;
     overflow: hidden;
+    /* 强制固定，防止iOS弹性滚动推开 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
   .nav.nav-collapsed {
     pointer-events: none;
