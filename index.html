@@ -146,16 +146,16 @@
 
   /* 菜单打开时：右浮块融入菜单背景，去掉浮块形状 */
   .nav-pill-right.menu-open {
-    top: 20px !important;
-    right: 20px !important;
-    transform: none !important;
-    width: 56px !important;
-    height: 56px !important;
-    border-radius: 16px !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    top: 20px;
+    right: 20px;
+    transform: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
   /* 三道杠 → X：第一条转45°，第二条消失，第三条转-45° */
   .nav-pill-right.menu-open .pill-menu-btn span:nth-child(1) {
@@ -174,16 +174,16 @@
 
   /* 菜单打开时：左浮块融入菜单背景，去掉浮块形状 */
   .nav-pill-left.menu-open {
-    top: 20px !important;
-    left: 20px !important;
-    transform: none !important;
-    width: 56px !important;
-    height: 56px !important;
-    border-radius: 16px !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    top: 20px;
+    left: 20px;
+    transform: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   /* ── 全屏菜单：BCG 风格，面板从下滑入，链接 stagger 淡入 ── */
@@ -281,7 +281,7 @@
     width: 100%; height: 100%;
     text-decoration: none;
   }
-  .pill-logo img { width: 38px; height: auto; display: block; filter: brightness(0) opacity(0.78); }
+  .pill-logo img { width: 42px; height: auto; display: block; filter: brightness(0) opacity(0.78); }
 
   .pill-menu-btn {
     display: flex; flex-direction: column; gap: 6px;
@@ -331,7 +331,7 @@
     transform: translateY(8px);
     transition: none;
   }
-  .logo-full { height: 32px; width: auto; display: block; filter: brightness(0) opacity(0.82); }
+  .logo-full { height: 28px; width: auto; display: block; filter: grayscale(1) brightness(0) invert(1); }
   .nav-links { display: flex; gap: 36px; align-items: center; height: 56px; }
   .nav-links a {
     font-size: 14px;
@@ -347,14 +347,14 @@
   @media (max-width: 640px) {
     .nav-inner { padding: 14px 14px 0; }
     .nav-links { display: none; }
-    .logo-full { height: 26px; }
+    .logo-full { height: 22px; }
     .logo { height: 48px; }
     .logo-inner { margin-left: -3px; }
     .nav-pill-left  { left: 14px; top: 14px; width: 48px; height: 48px; border-radius: 14px; }
     .nav-pill-right { right: 14px; top: 14px; width: 48px; height: 48px; border-radius: 14px; }
-    .nav-pill-left.menu-open { width: 48px !important; height: 48px !important; left: 14px !important; top: 14px !important; border-radius: 14px !important; }
-    .nav-pill-right.menu-open { width: 48px !important; height: 48px !important; right: 14px !important; top: 14px !important; border-radius: 14px !important; }
-    .pill-logo img { width: 30px; }
+    .nav-pill-left.menu-open { width: 48px; height: 48px; left: 14px; top: 14px; border-radius: 14px; }
+    .nav-pill-right.menu-open { width: 48px; height: 48px; right: 14px; top: 14px; border-radius: 14px; }
+    .pill-logo img { width: 34px; }
     .pill-menu-btn { gap: 5px; }
     .pill-menu-btn span { width: 20px; height: 1.5px; }
     .nav-pill-right.menu-open .pill-menu-btn span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
