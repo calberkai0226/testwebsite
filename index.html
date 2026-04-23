@@ -54,10 +54,8 @@
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     height: 64px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: saturate(180%) blur(28px);
-    -webkit-backdrop-filter: saturate(180%) blur(28px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    border-bottom: none;
     overflow: hidden;
     /* 强制固定，防止iOS弹性滚动推开 */
     -webkit-transform: translateZ(0);
@@ -344,9 +342,32 @@
   .nav.scrolled .nav-links a:hover { color: var(--text-primary); }
   .nav.scrolled .logo { color: var(--text-primary); }
 
+  /* 手机端导航栏内汉堡按钮（桌面端隐藏） */
+  .nav-mobile-menu {
+    display: none;
+    flex-direction: column; gap: 6px;
+    align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    cursor: pointer; background: none; border: none; padding: 0;
+  }
+  .nav-mobile-menu span {
+    display: block; width: 26px; height: 2px;
+    background: rgba(255, 252, 248, 0.88);
+    border-radius: 2px;
+    transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1),
+                opacity 0.25s ease,
+                background 0.3s ease;
+  }
+  .nav.scrolled .nav-mobile-menu span {
+    background: var(--text-primary);
+  }
+  /* 菜单打开时导航栏隐藏，所以这里不需要X状态 */
+
   @media (max-width: 640px) {
     .nav-inner { padding: 0 20px; }
     .nav-links { display: none; }
+    .nav-mobile-menu { display: flex; }
     .logo-full { height: 32px; }
     .logo-inner { margin-left: -3px; }
     .nav-pill-left  { left: 16px; top: 27px; width: 61px; height: 61px; }
@@ -913,6 +934,10 @@
       <a href="#process">流程</a>
       <a href="#contact">联系我们</a>
     </div>
+    <!-- 手机端导航栏内汉堡按钮 -->
+    <button class="nav-mobile-menu" id="navMobileMenu" aria-label="菜单" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
