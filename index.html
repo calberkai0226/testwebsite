@@ -139,15 +139,27 @@
   .nav-pill-right:hover .pill-menu-btn span {
     background: var(--accent-purple);
   }
+  /* 菜单打开时 hover 不要浮块效果 */
+  .nav-pill-right.menu-open:hover {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .nav-pill-right.menu-open:hover .pill-menu-btn span {
+    background: var(--accent-purple);
+  }
 
-  /* 菜单打开时：右浮标保持圆形带图案，向右移到屏幕最外侧 */
+  /* 菜单打开时：右浮块融入菜单背景，去掉浮块形状 */
   .nav-pill-right.menu-open {
-    top: 16px !important;
-    right: -8px !important;
+    top: 18px !important;
+    right: 18px !important;
     transform: none !important;
     width: 82px !important;
     height: 82px !important;
     border-radius: 18px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
   /* 三道杠 → X：第一条转45°，第二条消失，第三条转-45° */
   .nav-pill-right.menu-open .pill-menu-btn span:nth-child(1) {
@@ -164,19 +176,23 @@
     background: #2a1f3d;
   }
 
-  /* 菜单打开时：左浮标保持圆形带图案，向左移到屏幕最外侧 */
+  /* 菜单打开时：左浮块融入菜单背景，去掉浮块形状 */
   .nav-pill-left.menu-open {
-    top: 16px !important;
-    left: -8px !important;
+    top: 18px !important;
+    left: 18px !important;
     transform: none !important;
     width: 82px !important;
     height: 82px !important;
     border-radius: 14px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
-  /* ── 全屏菜单：外壳透明，body 从下滑入 ── */
+  /* ── 全屏菜单：BCG 风格，面板从下滑入，链接 stagger 淡入 ── */
   .fullscreen-menu {
-    position: fixed; inset: 0; z-index: 2000;
+    position: fixed; inset: 0; z-index: 1050;
     background: transparent;
     display: flex; flex-direction: column;
     pointer-events: none;
@@ -186,77 +202,76 @@
   }
   /* fsm-body：带背景色，整体从下方滑上来 */
   .fsm-body {
-    flex: 1;
+    position: absolute;
+    inset: 0;
     display: flex; flex-direction: column;
     background: #f5f3ee;
     transform: translateY(100%);
-    transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+    transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
   }
   .fullscreen-menu.open .fsm-body {
     transform: translateY(0);
   }
-  /* 菜单链接跟随滑入，轻微延迟 */
+  /* 菜单关闭时内容先淡出 */
   .fsm-nav,
   .fsm-footer {
     opacity: 0;
-    transition: opacity 0.25s ease 0.35s;
+    transform: translateY(20px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
   }
-  .fullscreen-menu.open .fsm-nav,
+  .fullscreen-menu.open .fsm-nav {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease 0.3s, transform 0.35s ease 0.3s;
+  }
   .fullscreen-menu.open .fsm-footer {
     opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease 0.55s, transform 0.3s ease 0.55s;
   }
-  .fsm-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 32px; height: 68px;
-    border-bottom: 1px solid var(--border-subtle);
-    flex-shrink: 0;
-    background: #f5f3ee;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .fullscreen-menu.open .fsm-header {
-    opacity: 1;
-  }
-  .fsm-logo { display: flex; align-items: center; text-decoration: none; }
-  .fsm-logo img { width: 32px; height: auto; display: block; filter: brightness(0) opacity(0.82); }
-  .fsm-close {
-    width: 44px; height: 44px;
-    background: none; border: none; cursor: pointer;
-    position: relative;
-  }
-  .fsm-close span {
-    position: absolute; top: 50%; left: 50%;
-    display: block; width: 20px; height: 1.5px;
-    background: #2a1f3d; border-radius: 2px;
-  }
-  .fsm-close span:first-child { transform: translate(-50%, -50%) rotate(45deg); }
-  .fsm-close span:last-child  { transform: translate(-50%, -50%) rotate(-45deg); }
-  .fsm-nav {
-    flex: 1; display: flex; flex-direction: column; justify-content: center;
-    padding: 0 36px;
-  }
+  /* 每个链接的 stagger 延迟 */
   .fsm-link {
     display: flex; align-items: center; justify-content: space-between;
     font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
-    font-size: clamp(18px, 2.5vw, 26px); font-weight: 400;
+    font-size: clamp(20px, 3vw, 32px); font-weight: 400;
     color: #888884;
     text-decoration: none;
-    line-height: 1.2; padding: 22px 0;
+    line-height: 1.2; padding: 24px 0;
     border-bottom: 1px solid rgba(0,0,0,0.07);
     letter-spacing: 0.01em;
     transition: color 0.2s;
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  .fullscreen-menu.open .fsm-link {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease, color 0.2s;
+  }
+  .fullscreen-menu.open .fsm-link:nth-child(1) { transition-delay: 0.35s, 0.35s, 0s; }
+  .fullscreen-menu.open .fsm-link:nth-child(2) { transition-delay: 0.42s, 0.42s, 0s; }
+  .fullscreen-menu.open .fsm-link:nth-child(3) { transition-delay: 0.49s, 0.49s, 0s; }
+  .fullscreen-menu.open .fsm-link:nth-child(4) { transition-delay: 0.56s, 0.56s, 0s; }
+  .fullscreen-menu.open .fsm-link:nth-child(5) { transition-delay: 0.63s, 0.63s, 0s; }
+  /* 关闭时瞬间重置（不要慢慢消失） */
+  .fullscreen-menu:not(.open) .fsm-link {
+    transition: opacity 0.12s ease, transform 0.12s ease, color 0.2s;
+  }
+  .fsm-nav {
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 48px 0;
   }
   .fsm-link:first-child { border-top: 1px solid rgba(0,0,0,0.07); }
   .fsm-link:hover { color: var(--text-primary); }
   .fsm-link-arrow {
-    font-size: 18px; color: #bbb;
+    font-size: 20px; color: #bbb;
     transition: transform 0.2s, color 0.2s;
     flex-shrink: 0;
   }
   .fsm-link:hover .fsm-link-arrow { transform: translateX(4px); color: #888; }
   .fsm-num { display: none; }
   .fsm-footer {
-    padding: 28px 36px; border-top: 1px solid rgba(0,0,0,0.07); flex-shrink: 0;
+    padding: 32px 48px; border-top: 1px solid rgba(0,0,0,0.07); flex-shrink: 0;
   }
   .fsm-cta {
     font-size: 15px; font-weight: 500;
@@ -336,13 +351,17 @@
     .logo-inner { margin-left: -3px; }
     .nav-pill-left  { left: 16px; top: 27px; width: 61px; height: 61px; }
     .nav-pill-right { right: 16px; top: 27px; width: 61px; height: 61px; }
-    .nav-pill-left.menu-open { width: 61px !important; height: 61px !important; }
-    .nav-pill-right.menu-open { width: 61px !important; height: 61px !important; }
+    .nav-pill-left.menu-open { width: 61px !important; height: 61px !important; left: 12px !important; top: 14px !important; }
+    .nav-pill-right.menu-open { width: 61px !important; height: 61px !important; right: 12px !important; top: 14px !important; }
     .pill-logo img { width: 50px; }
     .pill-menu-btn { gap: 6px; }
     .pill-menu-btn span { width: 31px; height: 2px; }
     .nav-pill-right.menu-open .pill-menu-btn span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .nav-pill-right.menu-open .pill-menu-btn span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    /* 移动端菜单适配 */
+    .fsm-nav { padding: 100px 28px 0; }
+    .fsm-link { font-size: clamp(22px, 6vw, 28px); padding: 20px 0; }
+    .fsm-footer { padding: 24px 28px; }
   }
 
   /* Hero */
@@ -912,16 +931,8 @@
   </button>
 </div>
 
-<!-- 全屏菜单 -->
+<!-- 全屏菜单（BCG 风格：无独立 header，浮块即控制器） -->
 <div class="fullscreen-menu" id="fullscreenMenu">
-  <div class="fsm-header">
-    <a href="#" class="fsm-logo" onclick="toggleMenu()">
-      <img src="m-logo.png" alt="巨能场" class="fsm-logo-full" />
-    </a>
-    <button class="fsm-close" onclick="toggleMenu()" aria-label="关闭">
-      <span></span><span></span>
-    </button>
-  </div>
   <div class="fsm-body" id="fsmBody">
     <nav class="fsm-nav">
       <a href="#services" class="fsm-link" onclick="toggleMenu()">
@@ -1255,17 +1266,26 @@
     window.toggleMenu = function () {
       menuOpen = !menuOpen;
       if (menuOpen) {
+        // 打开菜单
         fsMenu.classList.add('open');
         document.body.style.overflow = 'hidden';
+        // 隐藏主导航栏
+        mainNav.classList.add('nav-collapsed');
+        mainNav.classList.add('logo-hidden');
+        // 确保浮块可见（即使在页面顶部触发）
         pillLeft.classList.add('visible');
         pillRight.classList.add('visible');
+        // 浮块移到角落位置 + X 图标
         pillLeft.classList.add('menu-open');
         pillRight.classList.add('menu-open');
       } else {
+        // 关闭菜单：先让内容淡出，再滑走面板
         fsMenu.classList.remove('open');
         document.body.style.overflow = '';
+        // 浮块恢复正常位置
         pillLeft.classList.remove('menu-open');
         pillRight.classList.remove('menu-open');
+        // 根据当前滚动位置决定导航状态
         updateNav();
       }
     };
