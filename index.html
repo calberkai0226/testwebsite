@@ -384,9 +384,14 @@
     .pill-menu-btn span { width: 22px; height: 2px; }
     .nav-pill-right.menu-open .pill-menu-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-pill-right.menu-open .pill-menu-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    /* 移动端菜单适配 */
-    .fsm-nav { padding: 100px 28px 0; }
-    .fsm-link { font-size: clamp(22px, 6vw, 28px); padding: 20px 0; }
+    /* 移动端菜单适配 - BCG 风格 */
+    .fsm-nav { padding: 90px 28px 0; justify-content: flex-start; }
+    .fsm-link {
+      font-size: 28px; font-weight: 700; padding: 22px 0;
+      color: var(--text-primary);
+      font-family: "AlimamaShuHeiTi", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    .fsm-link-arrow { display: none; }
     .fsm-footer { padding: 24px 28px; }
   }
 
